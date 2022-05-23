@@ -18,11 +18,17 @@
 // Component name
 name: "jobStories";
 
+// Meta Data
+useHead({
+  title: "Jobs | Modern Orange",
+});
+
 // Reactive variables
 const storyIDs = ref([]);
 const storyKeys = ref([]);
 
 // TODO: Add error handling
+// Fetch user data
 const { data, error } = await useFetch(
   `${useRuntimeConfig().apiBaseUrl}/api/getinitialstories/job`
 );

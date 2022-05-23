@@ -52,3 +52,13 @@
     </div>
   </div>
 </template>
+
+<script setup>
+// Component name
+name: "about";
+
+// Meta Data
+useHead({
+  title: "About | Modern Orange",
+});
+</script>

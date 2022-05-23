@@ -24,6 +24,12 @@
 <script setup>
 useHead({
   title: "Modern Orange",
+  meta: [
+    {
+      name: "description",
+      content: "A modern Hacker News client",
+    },
+  ],
 });
 
 const theme = useTheme();

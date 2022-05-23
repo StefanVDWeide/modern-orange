@@ -21,12 +21,19 @@
 // Name
 name: "IndivdualUser";
 
+// Route data
 const route = useRoute();
+
+// Meta Data
+useHead({
+  title: `${route.params.username} | Modern Orange`,
+});
 
 // Reactive variables
 const userObject = ref({});
 
 // TODO: Add error handling
+// Fetch user data
 const { data, error } = await useFetch(
   `${useRuntimeConfig().apiBaseUrl}/api/getindividualuser/${
     route.params.username
@@ -35,6 +42,7 @@ const { data, error } = await useFetch(
 
 userObject.value = data;
 
+// Methods
 const formatCreatedDate = (timestamp) => {
   const date = new Date(timestamp * 1000);
   const months = [

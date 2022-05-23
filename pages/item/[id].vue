@@ -167,6 +167,7 @@
 // Name
 name: "IndivdualStory";
 
+// Route data
 const route = useRoute();
 
 // Reactive variables
@@ -175,6 +176,7 @@ const cleanStoryObject = ref({});
 const imgError = ref(false);
 
 // TODO: Add error handling
+// Fetch user data
 const { data, error } = await useFetch(
   `${useRuntimeConfig().apiBaseUrl}/api/getIndividualStory`,
   {
@@ -187,6 +189,12 @@ const { data, error } = await useFetch(
 
 cleanStoryObject.value = data.value;
 
+// Meta Data
+useHead({
+  title: `${cleanStoryObject.value.storyTitle} | Modern Orange`,
+});
+
+// Methods
 const handleImgError = () => {
   imgError.value = true;
 };

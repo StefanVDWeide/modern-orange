@@ -18,11 +18,17 @@
 // Component name
 name: "bestStories";
 
+// Meta Data
+useHead({
+  title: "Best Stories | Modern Orange",
+});
+
 // Reactive variables
 const storyIDs = ref([]);
 const storyKeys = ref([]);
 
 // TODO: Add error handling
+// Fetch user data
 const { data, error } = await useFetch(
   `${useRuntimeConfig().apiBaseUrl}/api/getinitialstories/best`
 );
