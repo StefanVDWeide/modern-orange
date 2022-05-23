@@ -1,7 +1,11 @@
-# Nuxt 3 Minimal Starter
+# Modern Orange
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+Modern Orange is a modern Hacker News client built with Nuxt 3 and based on the [official HN API](https://github.com/HackerNews/API).
 
+It tries to stay true to the original minimal design that everybody loves but adds new features such as dark mode, better usability on larger screens and preview images for each story.
+
+
+## Local Development
 ## Setup
 
 Make sure to install the dependencies:
@@ -25,18 +29,3 @@ Start the development server on http://localhost:3000
 npm run dev
 ```
 
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment) for more information.
