@@ -1,0 +1,16 @@
+<template>
+  <button
+    class="
+      px-6
+      py-3
+      text-xl
+      font-medium
+      text-white
+      bg-orange-600
+      rounded-md
+      hover:bg-orange-700
+    "
+  >
+    More
+  </button>
+</template>
