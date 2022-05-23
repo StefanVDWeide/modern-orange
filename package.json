@@ -16,6 +16,7 @@
   "dependencies": {
     "firebase": "^9.6.11",
     "open-graph-scraper": "^4.11.0",
-    "timeago.js": "^4.0.2"
+    "timeago.js": "^4.0.2",
+    "vue-gtag-next": "^1.14.0"
   }
 }
