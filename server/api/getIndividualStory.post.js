@@ -6,21 +6,31 @@ import ogs from "open-graph-scraper";
 
 const fetchIndividualStory = async (itemID) => {
     console.log(`Fetch individual story function called for ${itemID}`)
-    const snapshot = await get(child(db, `v0/item/${itemID}`))
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                console.log(`Snapshot value found for item: ${itemID}`)
-                return snapshot.val();
-            } else {
-                console.log("No data avaible");
-                throw "No data avaible"
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    console.log(`Returning data for item: ${itemID}`)
-    return snapshot;
+    try {
+        const snapshot = await get(child(db, `v0/item/${itemID}`));
+        if (snapshot.exists()) {
+            return snapshot.val();
+        } else {
+            console.log("No data availble")
+            throw "no data availble"
+        }
+    } catch (error) {
+        console.log(error)
+        return "Error"
+    }
+    // const snapshot = await get(child(db, `v0/item/${itemID}`))
+    //     .then((snapshot) => {
+    //         if (snapshot.exists()) {
+    //             console.log(`Snapshot value found for item: ${itemID}`)
+    //             return snapshot.val();
+    //         } else {
+    //             console.log("No data avaible");
+    //             throw "No data avaible"
+    //         }
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     });
 };
 
 
