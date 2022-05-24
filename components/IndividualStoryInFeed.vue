@@ -190,6 +190,7 @@ const handleImgError = () => {
 };
 
 const retryOnTimeout = () => {
+  console.log(pending.value);
   if (pending.value) {
     console.log("Request still pending after 5 seconds, refreshing");
     refresh();
@@ -198,5 +199,5 @@ const retryOnTimeout = () => {
 };
 
 // Set request timeout
-setTimeout(retryOnTimeout, 5000);
+setTimeout(retryOnTimeout, 1000);
 </script>
