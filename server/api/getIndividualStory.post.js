@@ -5,9 +5,11 @@ import ogs from "open-graph-scraper";
 
 
 const fetchIndividualStory = async (itemID) => {
+    console.log(`Fetch individual story function called for ${itemID}`)
     const snapshot = await get(child(db, `v0/item/${itemID}`))
         .then((snapshot) => {
             if (snapshot.exists()) {
+                console.log(`Snapshot value found for item: ${itemID}`)
                 return snapshot.val();
             } else {
                 console.log("No data avaible");
@@ -17,7 +19,7 @@ const fetchIndividualStory = async (itemID) => {
         .catch((error) => {
             console.log(error);
         });
-
+    console.log(`Returning data for item: ${itemID}`)
     return snapshot;
 };
 
@@ -128,6 +130,7 @@ export default defineEventHandler(async (event) => {
         console.log(`starting cleaning the inidivual story for: ${body.itemRanking}`)
         const cleanStoryObject = await processStoryObject(storyObject, itemID, itemRanking);
         console.log(`finished cleaning the inidivual story for: ${body.itemRanking}`)
+
         return cleanStoryObject;
 
     } catch (error) {
