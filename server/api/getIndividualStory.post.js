@@ -52,6 +52,7 @@ const fetchStoryPreviewImage = async (options) => {
 }
 
 const processStoryObject = async (storyObject, itemID, itemRanking) => {
+    console.log(`Started cleaning the story: ${itemRanking}`)
     let processedStoryObject = {
         storyURL: "",
         formattedURL: "",
@@ -68,11 +69,13 @@ const processStoryObject = async (storyObject, itemID, itemRanking) => {
         storyKids: ""
     };
     if (storyObject.url) {
+        console.log(`URL found for story: ${itemRanking}`)
         processedStoryObject.storyURL = storyObject.url;
         processedStoryObject.formattedURL = formatURL(storyObject.url);
         processedStoryObject.previewImage = await fetchStoryPreviewImage(
             { url: storyObject.url, timeout: 1000 }
         );
+        console.log(`Finished getting preview image for story: ${itemRanking}`)
     } else {
         processedStoryObject.storyURL = `/item/${itemID}`;
         processedStoryObject.previewImage = "standard";
@@ -90,7 +93,7 @@ const processStoryObject = async (storyObject, itemID, itemRanking) => {
     );
     processedStoryObject.storyType = checkItemType(storyObject.title);
     processedStoryObject.storyKids = storyObject.kids;
-
+    console.log(`Returning clean story object for story: ${itemRanking}`)
     return processedStoryObject;
 };
 
