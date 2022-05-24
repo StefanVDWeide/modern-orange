@@ -1,5 +1,5 @@
 import { get, child } from "firebase/database";
-import { db } from "~~//utils/firebase.js"
+import { db } from "~~/utils/firebase.js"
 import { formatTime } from "~~/utils/formatTime.js";
 import ogs from "open-graph-scraper";
 
@@ -116,7 +116,7 @@ const formatURL = (url) => {
     return domain.hostname.replace("www.", "");
 };
 
-
+// TODO: Add a timeout and retry function to the fetching of the story
 export default defineEventHandler(async (event) => {
     try {
         const body = await useBody(event);
