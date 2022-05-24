@@ -11,6 +11,7 @@ const fetchIndividualStory = async (itemID) => {
                 return snapshot.val();
             } else {
                 console.log("No data avaible");
+                throw "No data avaible"
             }
         })
         .catch((error) => {
@@ -117,11 +118,16 @@ const formatURL = (url) => {
 export default defineEventHandler(async (event) => {
     try {
         const body = await useBody(event);
-        console.log(`Request received for story ${body.itemRanking}`);
+        console.log(`Request received for story ranking ${body.itemRanking}`);
         const itemID = body.itemID;
+        console.log(`Item id for the received request: ${body.itemID}`)
         const itemRanking = body.itemRanking || 0
+        console.log(`starting fetching the inidivual story for: ${body.itemRanking}`)
         const storyObject = await fetchIndividualStory(itemID);
+        console.log(`finished fetching the inidivual story for: ${body.itemRanking}`)
+        console.log(`starting cleaning the inidivual story for: ${body.itemRanking}`)
         const cleanStoryObject = await processStoryObject(storyObject, itemID, itemRanking);
+        console.log(`finished cleaning the inidivual story for: ${body.itemRanking}`)
         return cleanStoryObject;
 
     } catch (error) {
