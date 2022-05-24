@@ -171,8 +171,7 @@ const cleanStoryObject = ref({});
 const imgError = ref(false);
 
 // TODO: Add error handling
-console.log(`Starting fetching story: ${props.itemRanking}`);
-const { data, error } = await useFetch(
+const { data, error, pending, refresh } = await useFetch(
   `${useRuntimeConfig().apiBaseUrl}/api/getIndividualStory`,
   {
     method: "POST",
@@ -182,14 +181,22 @@ const { data, error } = await useFetch(
     },
   }
 );
-if (error.value !== null) {
-  console.log(error.value);
-}
-console.log(`Finished fetching story: ${props.itemRanking}`);
 
 cleanStoryObject.value = data.value;
 
+// Methods
 const handleImgError = () => {
   imgError.value = true;
 };
+
+const retryOnTimeout = () => {
+  if (pending.value) {
+    console.log("Request still pending after 5 seconds, refreshing");
+    refresh();
+    setTimeout(retryOnTimeout, 5000);
+  }
+};
+
+// Set request timeout
+setTimeout(retryOnTimeout, 5000);
 </script>
