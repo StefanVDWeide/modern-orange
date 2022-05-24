@@ -25,8 +25,10 @@ const fetchIndividualStory = async (itemID) => {
 
 
 const fetchStoryPreviewImage = async (options) => {
+    console.log(`Preview image function called for: ${options.url}`)
     try {
         const response = await ogs(options);
+        console.log(`Response retrived for preview image url: ${options.url}`)
 
         if (response.error) {
             return "standard";
@@ -73,7 +75,7 @@ const processStoryObject = async (storyObject, itemID, itemRanking) => {
         processedStoryObject.storyURL = storyObject.url;
         processedStoryObject.formattedURL = formatURL(storyObject.url);
         processedStoryObject.previewImage = await fetchStoryPreviewImage(
-            { url: storyObject.url, timeout: 1000 }
+            { url: storyObject.url, timeout: 500 }
         );
         console.log(`Finished getting preview image for story: ${itemRanking}`)
     } else {
