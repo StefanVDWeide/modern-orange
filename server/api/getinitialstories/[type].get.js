@@ -10,7 +10,7 @@ import { db } from "~~/utils/firebase.js"
 
 const fetchInitialAskStories = async (storyType) => {
     const snapshot = await get(
-        query(child(db, `v0/${storyType}stories`), limitToFirst(30), orderByKey())
+        query(child(db, `v0/${storyType}stories`), limitToFirst(Number(useRuntimeConfig().maxStoriesPerFeedPage)), orderByKey())
     )
         .then((snapshot) => {
             if (snapshot.exists()) {

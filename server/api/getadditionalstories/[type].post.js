@@ -14,7 +14,7 @@ const fetchAdditionalAskStories = async (lastKey, storyType) => {
         query(
             child(db, `v0/${storyType}stories`),
             startAt(lastKey),
-            limitToFirst(30),
+            limitToFirst(Number(useRuntimeConfig().maxStoriesPerFeedPage)),
             orderByKey()
         )
     )
