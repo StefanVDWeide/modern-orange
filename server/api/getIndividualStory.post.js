@@ -9,7 +9,6 @@ const fetchIndividualStory = async (itemID) => {
     try {
         console.log(`awaiting get from firebase for ${itemID}`)
         const snapshot = await get(child(db, `v0/item/${itemID}`));
-        console.log(snapshot);
         if (snapshot.exists()) {
             return snapshot.val();
         } else {
@@ -73,9 +72,10 @@ const processStoryObject = async (storyObject, itemID, itemRanking) => {
         console.log(`URL found for story: ${itemRanking}`)
         processedStoryObject.storyURL = storyObject.url;
         processedStoryObject.formattedURL = formatURL(storyObject.url);
-        processedStoryObject.previewImage = await fetchStoryPreviewImage(
-            { url: storyObject.url, timeout: 500 }
-        );
+        // processedStoryObject.previewImage = await fetchStoryPreviewImage(
+        //     { url: storyObject.url, timeout: 500 }
+        // );
+        processedStoryObject.previewImage = "standard"
         console.log(`Finished getting preview image for story: ${itemRanking}`)
     } else {
         processedStoryObject.storyURL = `/item/${itemID}`;
