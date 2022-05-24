@@ -171,7 +171,7 @@ const cleanStoryObject = ref({});
 const imgError = ref(false);
 
 // TODO: Add error handling
-const { data, error, pending, refresh } = await useFetch(
+const { data, error } = await useFetch(
   `${useRuntimeConfig().apiBaseUrl}/api/getIndividualStory`,
   {
     method: "POST",
@@ -188,16 +188,4 @@ cleanStoryObject.value = data.value;
 const handleImgError = () => {
   imgError.value = true;
 };
-
-const retryOnTimeout = () => {
-  console.log(pending.value);
-  if (pending.value) {
-    console.log("Request still pending after 5 seconds, refreshing");
-    refresh();
-    setTimeout(retryOnTimeout, 5000);
-  }
-};
-
-// Set request timeout
-setTimeout(retryOnTimeout, 1000);
 </script>
