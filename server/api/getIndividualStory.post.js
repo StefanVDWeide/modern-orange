@@ -20,7 +20,7 @@ const fetchIndividualStory = async (itemID) => {
     return snapshot;
 };
 
-// TODO: See if a manual timeout (1 sec maybe?) can be added
+
 const fetchStoryPreviewImage = async (options) => {
     try {
         const response = await ogs(options);
@@ -43,13 +43,9 @@ const fetchStoryPreviewImage = async (options) => {
             return "standard";
         }
     } catch (error) {
-        console.log("An error occured during fetching the preview image")
-        console.log(error)
+        console.log(`An error occured while fetching the preview image from: ${options.url}`)
         return "standard"
     }
-
-
-
 }
 
 const processStoryObject = async (storyObject, itemID, itemRanking) => {
@@ -128,7 +124,7 @@ export default defineEventHandler(async (event) => {
         return cleanStoryObject;
 
     } catch (error) {
-        console.log("An error occured in the server route")
+        console.log("An error occured while retrieving an individual story on the server")
         console.log(error);
         return {
             error: true,

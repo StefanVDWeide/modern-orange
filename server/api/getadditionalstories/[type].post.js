@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
         return storyIDs;
 
     } catch (error) {
-        console.log("An error occured in the server route")
+        console.log("An error occured while retrieving an additional stories on the server")
         console.log(error);
         return {
             error: true,

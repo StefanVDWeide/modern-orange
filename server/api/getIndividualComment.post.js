@@ -29,6 +29,7 @@ export default defineEventHandler(async (event) => {
         return storyObject;
 
     } catch (error) {
+        console.log("An error occured while retrieving an additional stories on the server");
         console.log(error);
         return {
             error: true,

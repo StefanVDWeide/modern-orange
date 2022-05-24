@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
         return userData;
 
     } catch (error) {
-        console.log("An error occured in the server route")
+        console.log("An error occured while retrieving an individual user on the server")
         console.log(error);
         return {
             error: true,
