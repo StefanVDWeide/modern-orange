@@ -5,9 +5,7 @@ import ogs from "open-graph-scraper";
 
 
 const fetchIndividualStory = async (itemID) => {
-    console.log(`Fetch individual story function called for ${itemID}`)
     try {
-        console.log(`awaiting get from firebase for ${itemID}`)
         const snapshot = await get(child(db, `v0/item/${itemID}`));
         if (snapshot.exists()) {
             return snapshot.val();
@@ -21,12 +19,25 @@ const fetchIndividualStory = async (itemID) => {
     }
 };
 
+const setPreviewImageAsyncTimeOut = async (storyObject) => {
+    let timeout;
+    const timeoutPromise = new Promise((resolve, reject) => {
+        timeout = setTimeout(() => {
+            resolve("standard");
+        }, 1000);
+    });
+    const storyPreviewImage = await fetchStoryPreviewImage({ url: storyObject.url, timeout: 1000 })
+    const response = await Promise.race([storyPreviewImage, timeoutPromise]);
+
+    if (timeout) { //the code works without this but let's be safe and clean up the timeout
+        clearTimeout(timeout);
+    }
+    return response;
+}
 
 const fetchStoryPreviewImage = async (options) => {
-    console.log(`Preview image function called for: ${options.url}`)
     try {
         const response = await ogs(options);
-        console.log(`Response retrived for preview image url: ${options.url}`)
 
         if (response.error) {
             return "standard";
@@ -52,7 +63,6 @@ const fetchStoryPreviewImage = async (options) => {
 }
 
 const processStoryObject = async (storyObject, itemID, itemRanking) => {
-    console.log(`Started cleaning the story: ${itemRanking}`)
     let processedStoryObject = {
         storyURL: "",
         formattedURL: "",
@@ -69,14 +79,9 @@ const processStoryObject = async (storyObject, itemID, itemRanking) => {
         storyKids: ""
     };
     if (storyObject.url) {
-        console.log(`URL found for story: ${itemRanking}`)
         processedStoryObject.storyURL = storyObject.url;
         processedStoryObject.formattedURL = formatURL(storyObject.url);
-        // processedStoryObject.previewImage = await fetchStoryPreviewImage(
-        //     { url: storyObject.url, timeout: 500 }
-        // );
         processedStoryObject.previewImage = "standard"
-        console.log(`Finished getting preview image for story: ${itemRanking}`)
     } else {
         processedStoryObject.storyURL = `/item/${itemID}`;
         processedStoryObject.previewImage = "standard";
@@ -94,7 +99,6 @@ const processStoryObject = async (storyObject, itemID, itemRanking) => {
     );
     processedStoryObject.storyType = checkItemType(storyObject.title);
     processedStoryObject.storyKids = storyObject.kids;
-    console.log(`Returning clean story object for story: ${itemRanking}`)
     return processedStoryObject;
 };
 
@@ -124,17 +128,14 @@ const formatURL = (url) => {
 export default defineEventHandler(async (event) => {
     try {
         const body = await useBody(event);
-        console.log(`Request received for story ranking ${body.itemRanking}`);
         const itemID = body.itemID;
-        console.log(`Item id for the received request: ${body.itemID}`)
         const itemRanking = body.itemRanking || 0
-        console.log(`starting fetching the inidivual story for: ${body.itemRanking}`)
         const storyObject = await fetchIndividualStory(itemID);
-        console.log(`finished fetching the inidivual story for: ${body.itemRanking}`)
-        console.log(`starting cleaning the inidivual story for: ${body.itemRanking}`)
         const cleanStoryObject = await processStoryObject(storyObject, itemID, itemRanking);
-        console.log(`finished cleaning the inidivual story for: ${body.itemRanking}`)
 
+        if (storyObject.url) {
+            cleanStoryObject.previewImage = await setPreviewImageAsyncTimeOut(storyObject);
+        }
         return cleanStoryObject;
 
     } catch (error) {
