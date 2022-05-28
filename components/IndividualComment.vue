@@ -24,7 +24,7 @@
       v-show="showComment"
       v-for="kid in commentObject.kids"
       v-bind:key="kid"
-      class="ml-8 mt-6"
+      class="ml-2 mt-6"
     >
       <Suspense>
         <IndividualComment :commentID="kid" />
