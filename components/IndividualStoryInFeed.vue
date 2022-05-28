@@ -3,7 +3,7 @@
     <div class="inline-block mr-4 align-middle mb-4 md:mb-0">
       <a :href="cleanStoryObject.storyURL" target="_blank">
         <div
-          v-if="cleanStoryObject.previewImage === 'standard' || imgError"
+          v-if="previewImageURL === 'standard' || imgError"
           class="
             flex
             rounded-md
@@ -22,7 +22,7 @@
         </div>
         <img
           v-else
-          :src="cleanStoryObject.previewImage"
+          :src="previewImageURL"
           @error="handleImgError"
           alt=""
           class="h-24 w-24 object-cover rounded-md"
@@ -168,9 +168,11 @@ const props = defineProps({
 // Reactive variables
 const storyObject = ref({});
 const cleanStoryObject = ref({});
+const previewImageURL = ref("standard");
 const imgError = ref(false);
 
 // TODO: Add error handling
+// Fetch individual story
 const { data, error } = await useFetch(
   `${useRuntimeConfig().apiBaseUrl}/api/getIndividualStory`,
   {
@@ -188,4 +190,24 @@ cleanStoryObject.value = data.value;
 const handleImgError = () => {
   imgError.value = true;
 };
+
+const fetchPreviewImage = async () => {
+  const data = await $fetch(
+    `${useRuntimeConfig().apiBaseUrl}/api/getStoryPreviewImage`,
+    {
+      method: "post",
+      body: {
+        storyURL: cleanStoryObject.value.storyURL,
+      },
+    }
+  );
+  console.log(data);
+  previewImageURL.value = data;
+};
+
+// Call the fetch preview image function on mounted so that images can be loaded asynchronously
+onMounted(async () => {
+  await fetchPreviewImage();
+});
 </script>
+

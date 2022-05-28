@@ -26,14 +26,15 @@ const setPreviewImageAsyncTimeOut = async (storyObject) => {
             resolve("standard");
         }, 1000);
     });
-    const storyPreviewImage = await fetchStoryPreviewImage({ url: storyObject.url, timeout: 1000 })
+    const storyPreviewImage = await fetchStoryPreviewImage({ url: storyObject.url, timeout: 800 })
     const response = await Promise.race([storyPreviewImage, timeoutPromise]);
 
-    if (timeout) { //the code works without this but let's be safe and clean up the timeout
+    if (timeout) {
         clearTimeout(timeout);
     }
+    console.log(response);
     return response;
-}
+};
 
 const fetchStoryPreviewImage = async (options) => {
     try {
@@ -60,7 +61,7 @@ const fetchStoryPreviewImage = async (options) => {
         console.log(`An error occured while fetching the preview image from: ${options.url}`)
         return "standard"
     }
-}
+};
 
 const processStoryObject = async (storyObject, itemID, itemRanking) => {
     let processedStoryObject = {
@@ -133,9 +134,6 @@ export default defineEventHandler(async (event) => {
         const storyObject = await fetchIndividualStory(itemID);
         const cleanStoryObject = await processStoryObject(storyObject, itemID, itemRanking);
 
-        if (storyObject.url) {
-            cleanStoryObject.previewImage = await setPreviewImageAsyncTimeOut(storyObject);
-        }
         return cleanStoryObject;
 
     } catch (error) {
