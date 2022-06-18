@@ -3,7 +3,7 @@
     <ul class="space-x-2 text-sm text-gray-400">
       <li class="inline-block">
         <NuxtLink :to="`/user/${commentObject.by}`">{{
-          commentObject.by
+            commentObject.by
         }}</NuxtLink>
       </li>
       <li class="inline-block">·</li>
@@ -15,36 +15,37 @@
         [ - ]
       </li>
     </ul>
-    <p
-      v-show="showComment"
-      v-html="commentObject.text"
-      class="prose max-w-none dark:prose-invert"
-    ></p>
-    <div
-      v-show="showComment"
-      v-for="kid in commentObject.kids"
-      v-bind:key="kid"
-      class="ml-2 mt-6"
-    >
+    <p v-show="showComment" v-html="commentObject.text" class="prose max-w-none dark:prose-invert"></p>
+    <div v-show="showComment" v-for="kid in commentObject.kids" v-bind:key="kid" class="ml-2 mt-6">
       <Suspense>
         <IndividualComment :commentID="kid" />
-        <template #fallback> <IndividualCommentLoader /> </template>
+        <template #fallback>
+          <IndividualCommentLoader />
+        </template>
       </Suspense>
     </div>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   commentID: Number,
 });
 
+// interface for the comment object
+interface commentObject {
+  by?: string,
+  time?: string,
+  text?: string,
+  kids?: number[],
+}
+
 // Reactive variables
-const commentObject = ref({});
+const commentObject = ref<commentObject>({});
 const showComment = ref(true);
 
 // Fetch comment data
-const { data, error } = await useFetch(
+const { data } = await useFetch(
   `${useRuntimeConfig().apiBaseUrl}/api/getIndividualComment`,
   {
     method: "POST",

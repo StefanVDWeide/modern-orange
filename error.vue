@@ -10,9 +10,7 @@
         </h1>
       </div>
       <div class="flex justify-center">
-        <button
-          @click="handleError"
-          class="
+        <button @click="handleError" class="
             px-6
             py-3
             text-xl
@@ -21,8 +19,7 @@
             bg-orange-600
             rounded-md
             hover:bg-orange-700
-          "
-        >
+          ">
           Back
         </button>
       </div>
@@ -30,10 +27,10 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   error: Object,
 });
 
-const handleError = () => clearError({ redirect: "/" });
+const handleError = (): Promise<void> => clearError({ redirect: "/" });
 </script>

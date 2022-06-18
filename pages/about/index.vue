@@ -41,22 +41,15 @@
         <h2 class="text-4xl">Can I see the code?</h2>
         <p class="text-2xl">
           Yes, here you go:
-          <a
-            href="https://github.com/StefanVDWeide/modern-orange"
-            target="_blank"
-            class="underline text-blue-400"
-            >Link</a
-          >
+          <a href="https://github.com/StefanVDWeide/modern-orange" target="_blank"
+            class="underline text-blue-400">Link</a>
         </p>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
-// Component name
-name: "about";
-
+<script setup lang="ts">
 // Meta Data
 useHead({
   title: "About | Modern Orange",

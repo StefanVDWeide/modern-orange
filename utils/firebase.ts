@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app"
 import { getDatabase, ref } from "firebase/database"
 
-
 const firebaseConfig = {
     databaseURL: "https://hacker-news.firebaseio.com",
 };

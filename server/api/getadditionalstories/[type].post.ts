@@ -3,22 +3,24 @@ import {
     child,
     query,
     limitToFirst,
+    startAt,
     orderByKey,
 } from "firebase/database";
 
 import { db } from "~~/utils/firebase.js"
 
-const fetchInitialAskStories = async (storyType) => {
+const fetchAdditionalAskStories = async (lastKey: number, storyType: string) => {
     const snapshot = await get(
-        query(child(db, `v0/${storyType}stories`), limitToFirst(Number(useRuntimeConfig().maxStoriesPerFeedPage)), orderByKey())
+        query(
+            child(db, `v0/${storyType}stories`),
+            startAt(lastKey),
+            limitToFirst(Number(useRuntimeConfig().maxStoriesPerFeedPage)),
+            orderByKey()
+        )
     )
         .then((snapshot) => {
             if (snapshot.exists()) {
-                let itemIDs = [];
-                snapshot.forEach((object) => {
-                    itemIDs.push(object.key);
-                });
-                return { storyIDs: snapshot.val(), itemIDs: itemIDs };
+                return snapshot;
             } else {
                 console.log("No data available");
             }
@@ -26,23 +28,23 @@ const fetchInitialAskStories = async (storyType) => {
         .catch((error) => {
             console.error(error);
         });
-
     return snapshot;
 };
 
 
 export default defineEventHandler(async (event) => {
     try {
+        const body = await useBody(event);
+        const lastKey = body.lastKey
         const storyType = event.context.params.type;
-        const storyIDs = await fetchInitialAskStories(storyType);
+        const storyIDs = await fetchAdditionalAskStories(lastKey, storyType);
         return storyIDs;
 
     } catch (error) {
-        console.log("An error occured while retrieving an the initial stories on the server")
+        console.log("An error occured while retrieving an additional stories on the server")
         console.log(error);
         return {
             error: true,
         }
     }
 })
-

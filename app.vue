@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 useHead({
   title: "Modern Orange",
   meta: [
@@ -26,7 +26,7 @@ useHead({
 
 const theme = useTheme();
 
-const setTheme = (newTheme) => {
+const setTheme = (newTheme: string) => {
   localStorage.setItem("theme", newTheme);
   theme.value = newTheme;
 };
@@ -36,7 +36,7 @@ onMounted(() => {
     "(prefers-color-scheme: dark)"
   ).matches;
 
-  const themeFromLocalStorage = localStorage.getItem("theme");
+  const themeFromLocalStorage: string = localStorage.getItem("theme");
 
   if (themeFromLocalStorage) {
     setTheme(themeFromLocalStorage);
@@ -56,6 +56,7 @@ onMounted(() => {
 .page-leave-active {
   transition: all 0.2s;
 }
+
 .page-enter,
 .page-leave-to {
   opacity: 0;

@@ -1,10 +1,35 @@
 import { get, child } from "firebase/database";
 import { db } from "~~/utils/firebase.js"
 import { formatTime } from "~~/utils/formatTime.js";
-import ogs from "open-graph-scraper";
 
+interface storyObject {
+    url: string,
+    score: string,
+    title: string,
+    descendants: string,
+    by: string,
+    time: number,
+    kids: string[]
 
-const fetchIndividualStory = async (itemID) => {
+}
+
+interface processedStoryObject {
+    storyURL: string,
+    formattedURL: string,
+    previewImage: string,
+    storyTitle: string,
+    storyRanking: string,
+    storyScore: string,
+    storyDescendants: string,
+    storyBy: string,
+    storyByLink: string,
+    storyItemLink: string,
+    storyTime: string,
+    storyType: string,
+    storyKids: string[]
+}
+
+const fetchIndividualStory = async (itemID: string) => {
     try {
         const snapshot = await get(child(db, `v0/item/${itemID}`));
         if (snapshot.exists()) {
@@ -19,52 +44,8 @@ const fetchIndividualStory = async (itemID) => {
     }
 };
 
-const setPreviewImageAsyncTimeOut = async (storyObject) => {
-    let timeout;
-    const timeoutPromise = new Promise((resolve, reject) => {
-        timeout = setTimeout(() => {
-            resolve("standard");
-        }, 1000);
-    });
-    const storyPreviewImage = await fetchStoryPreviewImage({ url: storyObject.url, timeout: 800 })
-    const response = await Promise.race([storyPreviewImage, timeoutPromise]);
-
-    if (timeout) {
-        clearTimeout(timeout);
-    }
-    console.log(response);
-    return response;
-};
-
-const fetchStoryPreviewImage = async (options) => {
-    try {
-        const response = await ogs(options);
-
-        if (response.error) {
-            return "standard";
-        }
-
-        if (
-            response.result.ogImage !== undefined &&
-            validURL(response.result.ogImage.url)
-        ) {
-            return response.result.ogImage.url;
-        } else if (
-            response.result.twitterImage !== undefined &&
-            validURL(response.result.twitterImage.url)
-        ) {
-            return response.result.twitterImage.url;
-        } else {
-            return "standard";
-        }
-    } catch (error) {
-        console.log(`An error occured while fetching the preview image from: ${options.url}`)
-        return "standard"
-    }
-};
-
-const processStoryObject = async (storyObject, itemID, itemRanking) => {
-    let processedStoryObject = {
+const processStoryObject = async (storyObject: storyObject, itemID: string, itemRanking: string): Promise<processedStoryObject> => {
+    let processedStoryObject: processedStoryObject = {
         storyURL: "",
         formattedURL: "",
         previewImage: "",
@@ -77,7 +58,7 @@ const processStoryObject = async (storyObject, itemID, itemRanking) => {
         storyItemLink: "",
         storyTime: "",
         storyType: "",
-        storyKids: ""
+        storyKids: []
     };
     if (storyObject.url) {
         processedStoryObject.storyURL = storyObject.url;
@@ -103,12 +84,7 @@ const processStoryObject = async (storyObject, itemID, itemRanking) => {
     return processedStoryObject;
 };
 
-const validURL = (url) => {
-    const regex = new RegExp("^https?://");
-    return regex.test(url);
-};
-
-const checkItemType = (title) => {
+const checkItemType = (title: string): string => {
     if (title.includes("Ask HN:")) {
         return "Ask HN";
     } else if (title.includes("Show HN:")) {
@@ -125,8 +101,7 @@ const formatURL = (url) => {
     return domain.hostname.replace("www.", "");
 };
 
-// TODO: Add a timeout and retry function to the fetching of the story
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event): Promise<processedStoryObject | { error: boolean }> => {
     try {
         const body = await useBody(event);
         const itemID = body.itemID;

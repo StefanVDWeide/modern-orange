@@ -6,7 +6,7 @@ import {
 
 import { db } from "~~/utils/firebase.js"
 
-const fetchIndividualUser = async (userID) => {
+const fetchIndividualUser = async (userID: string) => {
     const snapshot = await get(
         query(child(db, `v0/user/${userID}`))
     )

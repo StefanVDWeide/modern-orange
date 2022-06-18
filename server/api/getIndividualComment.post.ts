@@ -3,7 +3,7 @@ import { db } from "~~/utils/firebase.js"
 import { formatTime } from "~~/utils/formatTime";
 
 // Methods
-const fetchIndividualComment = async (itemID) => {
+const fetchIndividualComment = async (itemID: string) => {
     const snapshot = await get(child(db, `v0/item/${itemID}`))
         .then((snapshot) => {
             if (snapshot.exists()) {
@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
         const body = await useBody(event);
         const itemID = body.itemID;
         const storyObject = await fetchIndividualComment(itemID);
-        storyObject.time = formatTime(storyObject.time * 1000, "en-US");
+        storyObject.time = formatTime(storyObject.time * 1000);
         return storyObject;
 
     } catch (error) {

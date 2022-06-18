@@ -21,6 +21,3 @@
     <hr class="border-0 bg-gray-200 h-0.5 mt-4" />
   </div>
 </template>
-
-<script setup>
-</script>

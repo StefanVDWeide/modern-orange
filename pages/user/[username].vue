@@ -1,26 +1,23 @@
 <template>
   <div v-if="userObject">
-    <h1 class="text-6xl font-bold mb-4">{{ userObject.value.id }}</h1>
-    <p v-html="userObject.value.about" class="text-xl mb-8" />
+    <h1 class="text-6xl font-bold mb-4">{{ userObject.id }}</h1>
+    <p v-html="userObject.about" class="text-xl mb-8" />
     <ul class="space-x-8">
       <li class="inline-block">
         <span class="block text-2xl font-semibold">Created</span>
         <span class="block">{{
-          formatCreatedDate(userObject.value.created)
+            formatCreatedDate(userObject.created)
         }}</span>
       </li>
       <li class="inline-block">
         <span class="block text-2xl font-semibold">Karma</span>
-        <span class="block">{{ userObject.value.karma }}</span>
+        <span class="block">{{ userObject.karma }}</span>
       </li>
     </ul>
   </div>
 </template>
 
-<script setup>
-// Name
-name: "IndivdualUser";
-
+<script setup lang="ts">
 // Route data
 const route = useRoute();
 
@@ -29,21 +26,27 @@ useHead({
   title: `${route.params.username} | Modern Orange`,
 });
 
+interface userObject {
+  id?: number,
+  about?: string,
+  created?: number
+  karma?: number
+}
+
 // Reactive variables
-const userObject = ref({});
+const userObject = ref<userObject>({});
 
 // TODO: Add error handling
 // Fetch user data
-const { data, error } = await useFetch(
-  `${useRuntimeConfig().apiBaseUrl}/api/getindividualuser/${
-    route.params.username
+const { data } = await useFetch<userObject>(
+  `${useRuntimeConfig().apiBaseUrl}/api/getindividualuser/${route.params.username
   }`
 );
 
-userObject.value = data;
+userObject.value = data.value;
 
 // Methods
-const formatCreatedDate = (timestamp) => {
+const formatCreatedDate = (timestamp: number): string => {
   const date = new Date(timestamp * 1000);
   const months = [
     "Jan",

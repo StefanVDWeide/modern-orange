@@ -5,5 +5,5 @@ export default defineNuxtPlugin((nuxtApp) => {
         property: {
             id: 'G-CEH99N8BLN'
         }
-    }, nuxtApp.vueApp.router);
+    });
 })

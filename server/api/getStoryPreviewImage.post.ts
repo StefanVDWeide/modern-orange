@@ -1,8 +1,13 @@
 import ogs from "open-graph-scraper";
 
-const setPreviewImageAsyncTimeOut = async (storyURL) => {
-    let timeout;
-    const timeoutPromise = new Promise((resolve, reject) => {
+interface fetchStoryPreviewImageOptions {
+    url: string,
+    timeout: number
+}
+
+const setPreviewImageAsyncTimeOut = async (storyURL: string): Promise<string> => {
+    let timeout: any;
+    const timeoutPromise: Promise<string> = new Promise((resolve) => {
         timeout = setTimeout(() => {
             resolve("standard");
         }, 1000);
@@ -17,7 +22,7 @@ const setPreviewImageAsyncTimeOut = async (storyURL) => {
     return response;
 };
 
-const fetchStoryPreviewImage = async (options) => {
+const fetchStoryPreviewImage = async (options: fetchStoryPreviewImageOptions): Promise<string> => {
     try {
         const response = await ogs(options);
 
@@ -44,12 +49,11 @@ const fetchStoryPreviewImage = async (options) => {
     }
 };
 
-const validURL = (url) => {
+const validURL = (url: string) => {
     const regex = new RegExp("^https?://");
     return regex.test(url);
 };
 
-// TODO: Add a timeout and retry function to the fetching of the story
 export default defineEventHandler(async (event) => {
     try {
         const body = await useBody(event);
