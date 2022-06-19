@@ -35,7 +35,6 @@ const fetchIndividualStory = async (itemID: string) => {
     try {
         const snapshot = await get(child(db, `v0/item/${itemID}`));
         if (snapshot.exists()) {
-            console.log(snapshot.val())
             return snapshot.val();
         } else {
             console.log("No data availble")
