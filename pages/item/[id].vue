@@ -1,7 +1,7 @@
 <template>
   <div v-if="cleanStoryObject">
-    <div class="mb-6">
-      <div class="inline-block mr-4 align-middle mb-4 md:mb-0">
+    <div class="grid grid-cols-12 mb-6">
+      <div class="col-span-12 md:col-span-1 align-middle mb-4 md:mb-0">
         <a :href="cleanStoryObject.storyURL" target="_blank">
           <div v-if="previewImageURL === 'standard' || imgError" class="
               flex
@@ -21,7 +21,7 @@
           <img v-else :src="previewImageURL" @error="handleImgError" alt="" class="h-24 w-24 object-cover rounded-md" />
         </a>
       </div>
-      <div class="inline-block align-middle">
+      <div class="col-start-1 col-span-12 md:col-start-2 md:col-span-11 md:ml-4 align-middle">
         <div class="mb-2">
           <a href="">
             <span class="
@@ -40,6 +40,7 @@
         </div>
         <a :href="cleanStoryObject.storyURL" target="_blank" class="text-lg font-semibold">
           {{ cleanStoryObject.storyTitle }}</a>
+        <p v-if="cleanStoryObject.storyText">{{ cleanStoryObject.storyText }}</p>
         <ul class="space-x-4 mt-2 text-sm">
           <li class="inline-block text-gray-400">
             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -105,7 +106,6 @@
           </li>
         </ul>
       </div>
-      <hr class="border-0 bg-gray-200 h-0.5 mt-4" />
     </div>
     <div v-for="kid in cleanStoryObject.storyKids" v-bind:key="kid">
       <Suspense>
@@ -135,6 +135,7 @@ interface cleanStoryObject {
   storyKids?: number[],
   storyType?: string,
   storyTitle?: string,
+  storyText?: string,
   storyScore?: number,
   storyItemLink?: string,
   storyDescendants?: number,

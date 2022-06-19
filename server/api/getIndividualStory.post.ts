@@ -6,6 +6,7 @@ interface storyObject {
     url: string,
     score: string,
     title: string,
+    text?: string,
     descendants: string,
     by: string,
     time: number,
@@ -18,6 +19,7 @@ interface processedStoryObject {
     formattedURL: string,
     previewImage: string,
     storyTitle: string,
+    storyText?: string,
     storyRanking: string,
     storyScore: string,
     storyDescendants: string,
@@ -33,6 +35,7 @@ const fetchIndividualStory = async (itemID: string) => {
     try {
         const snapshot = await get(child(db, `v0/item/${itemID}`));
         if (snapshot.exists()) {
+            console.log(snapshot.val())
             return snapshot.val();
         } else {
             console.log("No data availble")
@@ -50,6 +53,7 @@ const processStoryObject = async (storyObject: storyObject, itemID: string, item
         formattedURL: "",
         previewImage: "",
         storyTitle: "",
+        storyText: "",
         storyRanking: "",
         storyScore: "",
         storyDescendants: "",
@@ -68,6 +72,9 @@ const processStoryObject = async (storyObject: storyObject, itemID: string, item
         processedStoryObject.storyURL = `/item/${itemID}`;
         processedStoryObject.previewImage = "standard";
         processedStoryObject.formattedURL = "modernorange.com";
+    }
+    if (storyObject.text) {
+        processedStoryObject.storyText = storyObject.text;
     }
     processedStoryObject.storyTitle = storyObject.title;
     processedStoryObject.storyRanking = itemRanking + 1;
