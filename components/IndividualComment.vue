@@ -15,7 +15,7 @@
         [ - ]
       </li>
     </ul>
-    <p v-show="showComment" v-html="commentObject.text" class="prose max-w-none dark:prose-invert"></p>
+    <div v-show="showComment" v-html="commentObject.text" class="prose max-w-none dark:prose-invert"></div>
     <div v-show="showComment" v-for="kid in commentObject.kids" v-bind:key="kid" class="ml-2 mt-6">
       <Suspense>
         <IndividualComment :commentID="kid" />

@@ -40,9 +40,9 @@
         </div>
         <a :href="cleanStoryObject.storyURL" target="_blank" class="text-lg font-semibold">
           {{ cleanStoryObject.storyTitle }}</a>
-        <p v-if="cleanStoryObject.storyText" v-html="cleanStoryObject.storyText"
+        <div v-if="cleanStoryObject.storyText" v-html="cleanStoryObject.storyText"
           class="prose max-w-none dark:prose-invert">
-        </p>
+        </div>
         <ul class="space-x-4 mt-2 text-sm">
           <li class="inline-block text-gray-400">
             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
