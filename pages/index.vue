@@ -38,8 +38,6 @@ const { data } = await useFetch<APIBody>(
   }
 );
 
-console.log(data.value.storyIDs);
-
 storyIDs.value = data.value.storyIDs;
 storyKeys.value = data.value.itemIDs;
 
