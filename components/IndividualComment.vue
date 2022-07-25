@@ -52,6 +52,7 @@ const { data } = await useFetch(
     body: {
       itemID: props.commentID,
     },
+    key: props.commentID.toString()
   }
 );
 

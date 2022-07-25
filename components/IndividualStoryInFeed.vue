@@ -17,7 +17,8 @@
               cleanStoryObject.formattedURL.charAt(0).toUpperCase()
           }}</span>
         </div>
-        <img v-else :src="previewImageURL" @error="handleImgError" alt="" class="h-24 w-24 object-cover rounded-md" />
+        <nuxt-img v-else loading="lazy" :src="previewImageURL" @error="handleImgError" alt=""
+          class="h-24 w-24 object-cover rounded-md" />
       </a>
     </div>
     <div class="inline-block align-middle">
@@ -145,6 +146,7 @@ const { data } = await useFetch<cleanStoryObject>(
       itemID: props.itemID,
       itemRanking: props.itemRanking,
     },
+    key: props.itemID.toString()
   }
 );
 
