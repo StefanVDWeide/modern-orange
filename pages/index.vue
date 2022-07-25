@@ -17,21 +17,28 @@
 </template>
 
 <script setup lang="ts">
+import { hash } from 'ohash'
+
 // Reactive variables
-const storyIDs = ref<string[]>([]);
-const storyKeys = ref<string[]>([]);
+const storyIDs = ref<number[]>([]);
+const storyKeys = ref<number[]>([]);
 
 // useFetch interfact 
 interface APIBody {
-  storyIDs: string[],
-  itemIDs: string[],
+  storyIDs: number[],
+  itemIDs: number[],
 }
 
 // TODO: Add error handling
 // Fetch user data
 const { data } = await useFetch<APIBody>(
-  `${useRuntimeConfig().apiBaseUrl}/api/getinitialstories/top`
+  `${useRuntimeConfig().apiBaseUrl}/api/getinitialstories/top`,
+  {
+    key: hash(['api-fetch']),
+  }
 );
+
+console.log(data.value.storyIDs);
 
 storyIDs.value = data.value.storyIDs;
 storyKeys.value = data.value.itemIDs;
@@ -39,7 +46,7 @@ storyKeys.value = data.value.itemIDs;
 // TODO: Add error handling
 // Methods
 const fetchAdditionalTopStories = async () => {
-  const data: string[] = await $fetch(
+  const data: number[] = await $fetch(
     `${useRuntimeConfig().apiBaseUrl}/api/getadditionalstories/top`,
     {
       method: "POST",
