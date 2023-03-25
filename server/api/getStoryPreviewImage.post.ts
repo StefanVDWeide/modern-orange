@@ -56,7 +56,7 @@ const validURL = (url: string) => {
 
 export default defineEventHandler(async (event) => {
     try {
-        const body = await useBody(event);
+        const body = await readBody(event);
         const storyURL = body.storyURL;
         const previewImageURL = await setPreviewImageAsyncTimeOut(storyURL);
 

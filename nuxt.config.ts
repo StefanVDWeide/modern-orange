@@ -1,9 +1,10 @@
-import { defineNuxtConfig } from 'nuxt'
+import { defineNuxtConfig } from 'nuxt/config'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
     modules: [
-        "@nuxt/image-edge"
+        "@nuxt/image-edge",
+        "@nuxtjs/tailwindcss"
     ],
     runtimeConfig: {
         maxStoriesPerFeedPage: '25',

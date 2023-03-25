@@ -22,7 +22,7 @@ const fetchIndividualComment = async (itemID: string) => {
 
 export default defineEventHandler(async (event) => {
     try {
-        const body = await useBody(event);
+        const body = await readBody(event);
         const itemID = body.itemID;
         const storyObject = await fetchIndividualComment(itemID);
         storyObject.time = formatTime(storyObject.time * 1000);

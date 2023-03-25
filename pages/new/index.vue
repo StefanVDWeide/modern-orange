@@ -1,5 +1,5 @@
 <template>
-  <div v-if="storyIDs">
+  <div v-if="storyIDs.length > 0">
     <ClientOnly>
       <div v-for="(id, index) in storyIDs" v-bind:key="index">
         <Suspense>
@@ -40,6 +40,7 @@ const { data } = await useFetch<APIBody>(
 
 storyIDs.value = data.value.storyIDs;
 storyKeys.value = data.value.itemIDs;
+
 
 // TODO: Add error handling
 // Methods

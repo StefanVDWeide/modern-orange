@@ -34,7 +34,7 @@ const fetchAdditionalAskStories = async (lastKey: number, storyType: string) => 
 
 export default defineEventHandler(async (event) => {
     try {
-        const body = await useBody(event);
+        const body = await readBody(event);
         const lastKey = body.lastKey
         const storyType = event.context.params.type;
         const storyIDs = await fetchAdditionalAskStories(lastKey, storyType);

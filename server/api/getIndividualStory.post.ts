@@ -109,7 +109,7 @@ const formatURL = (url) => {
 
 export default defineEventHandler(async (event): Promise<processedStoryObject | { error: boolean }> => {
     try {
-        const body = await useBody(event);
+        const body = await readBody(event);
         const itemID = body.itemID;
         const itemRanking = body.itemRanking || 0
         const storyObject = await fetchIndividualStory(itemID);
