@@ -15,7 +15,7 @@
               items-center
             ">
             <span>{{
-                cleanStoryObject.formattedURL.charAt(0).toUpperCase()
+              cleanStoryObject.formattedURL.charAt(0).toUpperCase()
             }}</span>
           </div>
           <nuxt-img v-else loading="lazy" :src="previewImageURL" @error="handleImgError" alt=""
@@ -96,7 +96,7 @@
             </svg>
 
             <NuxtLink :to="cleanStoryObject.storyByLink" class="align-middle">{{
-                cleanStoryObject.storyBy
+              cleanStoryObject.storyBy
             }}</NuxtLink>
           </li>
           <li class="inline-block text-gray-400">
@@ -104,7 +104,7 @@
           </li>
           <li class="inline-block text-blue-400">
             <a :href="cleanStoryObject.storyURL" target="_blank">{{
-                cleanStoryObject.formattedURL
+              cleanStoryObject.formattedURL
             }}</a>
           </li>
         </ul>
@@ -150,7 +150,7 @@ interface cleanStoryObject {
 // TODO: Add error handling
 // Fetch user data
 const { data } = await useFetch(
-  `${useRuntimeConfig().apiBaseUrl}/api/getIndividualStory`,
+  `/api/getIndividualStory`,
   {
     method: "POST",
     body: {
@@ -174,7 +174,7 @@ const handleImgError = () => {
 
 const fetchPreviewImage = async () => {
   const data: string = await $fetch<string>(
-    `${useRuntimeConfig().apiBaseUrl}/api/getStoryPreviewImage`,
+    `/api/getStoryPreviewImage`,
     {
       method: "post",
       body: {

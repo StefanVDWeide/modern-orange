@@ -144,7 +144,7 @@ const imgError = ref(false);
 // TODO: Add error handling
 // Fetch individual story
 const { data, pending, refresh } = await useFetch<cleanStoryObject>(
-  `${useRuntimeConfig().apiBaseUrl}/api/getIndividualStory`,
+  `/api/getIndividualStory`,
   {
     method: "POST",
     body: {
@@ -177,7 +177,7 @@ const handleImgError = () => {
 const fetchPreviewImage = async () => {
   try {
     const imageURL: string = await $fetch<string>(
-      `${useRuntimeConfig().apiBaseUrl}/api/getStoryPreviewImage`,
+      `/api/getStoryPreviewImage`,
       {
         method: "post",
         body: {

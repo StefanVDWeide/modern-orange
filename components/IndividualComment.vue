@@ -3,7 +3,7 @@
     <ul class="space-x-2 text-sm text-gray-400">
       <li class="inline-block">
         <NuxtLink :to="`/user/${commentObject.by}`">{{
-            commentObject.by
+          commentObject.by
         }}</NuxtLink>
       </li>
       <li class="inline-block">·</li>
@@ -46,7 +46,7 @@ const showComment = ref(true);
 
 // Fetch comment data
 const { data } = await useFetch(
-  `${useRuntimeConfig().apiBaseUrl}/api/getIndividualComment`,
+  `/api/getIndividualComment`,
   {
     method: "POST",
     body: {

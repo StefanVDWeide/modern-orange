@@ -6,7 +6,7 @@
       <li class="inline-block">
         <span class="block text-2xl font-semibold">Created</span>
         <span class="block">{{
-            formatCreatedDate(userObject.created)
+          formatCreatedDate(userObject.created)
         }}</span>
       </li>
       <li class="inline-block">
@@ -39,7 +39,7 @@ const userObject = ref<userObject>({});
 // TODO: Add error handling
 // Fetch user data
 const { data } = await useFetch<userObject>(
-  `${useRuntimeConfig().apiBaseUrl}/api/getindividualuser/${route.params.username
+  `/api/getindividualuser/${route.params.username
   }`
 );
 

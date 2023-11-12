@@ -28,11 +28,10 @@ interface APIBody {
   storyIDs: number[],
   itemIDs: number[],
 }
-
 // TODO: Add error handling
 // Fetch user data
 const { data } = await useFetch<APIBody>(
-  `${useRuntimeConfig().apiBaseUrl}/api/getinitialstories/top`,
+  `/api/getinitialstories/top`,
   {
     key: hash(['api-fetch']),
   }
@@ -45,7 +44,7 @@ storyKeys.value = data.value.itemIDs;
 // Methods
 const fetchAdditionalTopStories = async () => {
   const data: number[] = await $fetch(
-    `${useRuntimeConfig().apiBaseUrl}/api/getadditionalstories/top`,
+    `/api/getadditionalstories/top`,
     {
       method: "POST",
       body: {
