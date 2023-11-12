@@ -19,45 +19,56 @@
 <script setup lang="ts">
 import { hash } from 'ohash'
 
-// Reactive variables
-const storyIDs = ref<number[]>([]);
-const storyKeys = ref<number[]>([]);
-
-// useFetch interfact 
+// Define the types for your data
 interface APIBody {
   storyIDs: number[],
   itemIDs: number[],
 }
-// TODO: Add error handling
-// Fetch user data
-const { data } = await useFetch<APIBody>(
-  `/api/getinitialstories/top`,
-  {
+
+interface FetchResponse {
+  storyIDs: number[];
+  itemIDs: number[];
+}
+
+// Reactive variables
+const storyIDs = ref<number[]>([]);
+const storyKeys = ref<number[]>([]);
+
+// Fetch user data with better error handling
+try {
+  const { data } = await useFetch<APIBody>(`/api/getinitialstories/top`, {
     key: hash(['api-fetch']),
+  });
+
+  if (data.value?.storyIDs && data.value?.itemIDs) {
+    storyIDs.value = data.value.storyIDs;
+    storyKeys.value = data.value.itemIDs;
+  } else {
+    // Handle the case where data is not in the expected format
+    console.error('Invalid data format received from API');
   }
-);
+} catch (error) {
+  console.error('Failed to fetch initial stories:', error);
+}
 
-storyIDs.value = data.value.storyIDs;
-storyKeys.value = data.value.itemIDs;
-
-// TODO: Add error handling
-// Methods
+// Method to fetch additional stories with better error handling
 const fetchAdditionalTopStories = async () => {
-  const data: number[] = await $fetch(
-    `/api/getadditionalstories/top`,
-    {
+  try {
+    const response = await $fetch<FetchResponse>(`/api/getadditionalstories/top`, {
       method: "POST",
       body: {
         lastKey: (
           Number(storyKeys.value[storyKeys.value.length - 1]) + 1
         ).toString(),
       },
-    }
-  );
-  let item: any;
-  for (item in data) {
-    storyIDs.value.push(data[item]);
-    storyKeys.value.push(item);
+    });
+
+    response.storyIDs.forEach((id, index) => {
+      storyIDs.value.push(id);
+      storyKeys.value.push(response.itemIDs[index]);
+    });
+  } catch (error) {
+    console.error('Failed to fetch additional stories:', error);
   }
 };
 </script>
