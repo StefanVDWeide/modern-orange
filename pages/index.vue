@@ -26,8 +26,7 @@ interface APIBody {
 }
 
 interface FetchResponse {
-  storyIDs: number[];
-  itemIDs: number[];
+  [key: string]: number;
 }
 
 // Reactive variables
@@ -63,10 +62,12 @@ const fetchAdditionalTopStories = async () => {
       },
     });
 
-    response.storyIDs.forEach((id, index) => {
-      storyIDs.value.push(id);
-      storyKeys.value.push(response.itemIDs[index]);
-    });
+    for (const key in response) {
+      if (response.hasOwnProperty(key)) {
+        storyIDs.value.push(response[key]);
+        storyKeys.value.push(Number(key));
+      }
+    }
   } catch (error) {
     console.error('Failed to fetch additional stories:', error);
   }
