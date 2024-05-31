@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@nuxt/image": "^1.0.0",
-    "firebase": "^9.6.11",
-    "open-graph-scraper": "^4.11.0",
+    "firebase": "^10.12.2",
+    "open-graph-scraper": "^6.5.1",
     "timeago.js": "^4.0.2",
     "vue-gtag-next": "^1.14.0"
   }
