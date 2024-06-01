@@ -188,4 +188,22 @@ const handleImgError = () => {
 //   }
 // };
 
+const fetchPreviewImage = async () => {
+  const data: string = await $fetch<string>(
+    `/api/getStoryPreviewImage`,
+    {
+      method: "post",
+      body: {
+        storyURL: cleanStoryObject.value.storyURL,
+      },
+    }
+  );
+  previewImageURL.value = data;
+};
+
+// Call the fetch preview image function on mounted so that images can be loaded asynchronously
+onMounted(async () => {
+  await fetchPreviewImage();
+});
+
 </script>
