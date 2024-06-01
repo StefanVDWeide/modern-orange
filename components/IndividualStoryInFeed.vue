@@ -156,36 +156,36 @@ const { data, pending, refresh } = await useFetch<cleanStoryObject>(
 cleanStoryObject.value = data.value;
 
 // Watch the pending state in order to update the value again
-watch(pending, async () => {
-  cleanStoryObject.value = data.value;
-  await fetchPreviewImage();
-});
+// watch(pending, async () => {
+//   cleanStoryObject.value = data.value;
+//   await fetchPreviewImage();
+// });
 
-// Refresh the useFetch function in order to reset the pending state, thus fetching the preview images of the new page again
-watchEffect(() => {
-  refresh();
-});
+// // Refresh the useFetch function in order to reset the pending state, thus fetching the preview images of the new page again
+// watchEffect(() => {
+//   refresh();
+// });
 
 // Methods
 const handleImgError = () => {
   imgError.value = true;
 };
 
-const fetchPreviewImage = async () => {
-  try {
-    const imageURL: string = await $fetch<string>(
-      `/api/getStoryPreviewImage`,
-      {
-        method: "post",
-        body: {
-          storyURL: cleanStoryObject.value.storyURL,
-        },
-      }
-    );
-    previewImageURL.value = imageURL;
-  } catch (error) {
-    handleImgError();
-  }
-};
+// const fetchPreviewImage = async () => {
+//   try {
+//     const imageURL: string = await $fetch<string>(
+//       `/api/getStoryPreviewImage`,
+//       {
+//         method: "post",
+//         body: {
+//           storyURL: cleanStoryObject.value.storyURL,
+//         },
+//       }
+//     );
+//     previewImageURL.value = imageURL;
+//   } catch (error) {
+//     handleImgError();
+//   }
+// };
 
 </script>
