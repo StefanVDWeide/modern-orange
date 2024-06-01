@@ -14,8 +14,8 @@
               items-center
             ">
           <span>{{
-            cleanStoryObject.formattedURL.charAt(0).toUpperCase()
-          }}</span>
+    cleanStoryObject.formattedURL.charAt(0).toUpperCase()
+  }}</span>
         </div>
         <nuxt-img v-else loading="lazy" :src="previewImageURL" @error="handleImgError" alt=""
           class="h-24 w-24 object-cover rounded-md" />
@@ -37,8 +37,8 @@
             bg-orange-100
             text-orange-800
           ">{{
-            cleanStoryObject.storyType
-          }}</span>
+    cleanStoryObject.storyType
+  }}</span>
         </a>
       </div>
       <a :href="cleanStoryObject.storyURL" target="_blank" class="text-lg font-semibold">
@@ -87,15 +87,15 @@
           </NuxtLink>
         </li>
         <li class="inline-block text-gray-600">
-          <svg width="16px" height="16px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="none"
-            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          <svg width="16px" height="16px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1"
+            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
             class="inline-block text-gray-600">
             <circle cx="8" cy="6" r="3.25" />
             <path d="m2.75 14.25c0-2.5 2-5 5.25-5s5.25 2.5 5.25 5" />
           </svg>
           <NuxtLink :to="cleanStoryObject.storyByLink" class="align-middle">{{
-            cleanStoryObject.storyBy
-          }}</NuxtLink>
+    cleanStoryObject.storyBy
+  }}</NuxtLink>
         </li>
         <li class="inline-block text-gray-400">
           {{ cleanStoryObject.storyTime }}
@@ -103,7 +103,7 @@
         <li class="inline-block text-blue-400">
           <a :href="cleanStoryObject.storyURL" target="_blank">{{
             cleanStoryObject.formattedURL
-          }}</a>
+            }}</a>
         </li>
       </ul>
     </div>
@@ -141,7 +141,7 @@ const imgError = ref(false);
 // TODO: Add error handling
 // Fetch individual story
 const { data, pending, refresh } = await useFetch<cleanStoryObject>(
-  `/api/getIndividualStory`,
+  `/api/getIndividualStoryRest`,
   {
     method: "POST",
     body: {

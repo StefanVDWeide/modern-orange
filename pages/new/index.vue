@@ -1,15 +1,13 @@
 <template>
   <div v-if="storyIDs.length > 0">
-    <ClientOnly>
-      <div v-for="(id, index) in storyIDs" v-bind:key="index">
-        <Suspense>
-          <IndividualStoryInFeed :itemID="id" :itemRanking="index" />
-          <template #fallback>
-            <IndividualStoryInFeedLoader />
-          </template>
-        </Suspense>
-      </div>
-    </ClientOnly>
+    <div v-for="(id, index) in storyIDs" v-bind:key="index">
+      <Suspense>
+        <IndividualStoryInFeed :itemID="id" :itemRanking="index" />
+        <template #fallback>
+          <IndividualStoryInFeedLoader />
+        </template>
+      </Suspense>
+    </div>
     <div class="mb-8">
       <FetchMoreStoriesButton @click="fetchAdditionalTopStories" />
     </div>
