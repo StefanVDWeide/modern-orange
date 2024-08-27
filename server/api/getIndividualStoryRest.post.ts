@@ -31,17 +31,16 @@ interface processedStoryObject {
 const fetchIndividualStory = async (itemID: string) => {
 	const url = `https://hacker-news.firebaseio.com/v0/item/${itemID}.json`;
 	try {
-		const response = await fetch(url);
-		if (response.ok) {
-			const data = await response.json();
-			return data;
+		const response = await $fetch(url);
+		if (response) {
+			return response;
 		} else {
 			console.log("No data available");
-			throw "no data available";
+			throw new Error("No data available");
 		}
 	} catch (error) {
-		console.log(error);
-		return "Error";
+		console.error("Error fetching story:", error);
+		throw error;
 	}
 };
 
