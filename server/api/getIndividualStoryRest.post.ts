@@ -102,7 +102,7 @@ const checkItemType = (title: string): string => {
 	}
 };
 
-const formatURL = (url) => {
+const formatURL = (url: string) => {
 	const domain = new URL(url);
 	return domain.hostname.replace("www.", "");
 };
