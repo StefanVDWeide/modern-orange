@@ -29,6 +29,9 @@ interface processedStoryObject {
 }
 
 const fetchIndividualStory = async (itemID: string) => {
+	const test = "https://google.com";
+	const r = await $fetch(test);
+	console.log(r);
 	const url = `https://hacker-news.firebaseio.com/v0/item/${itemID}.json`;
 	try {
 		const response = await $fetch(url);

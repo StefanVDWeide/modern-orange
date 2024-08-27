@@ -1,31 +1,28 @@
-import { defineNuxtConfig } from 'nuxt/config'
+import { defineNuxtConfig } from "nuxt/config";
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  modules: [
-      "@nuxt/image",
-      "@nuxtjs/tailwindcss"
-  ],
+	modules: ["@nuxt/image", "@nuxtjs/tailwindcss"],
 
-  runtimeConfig: {
-      maxStoriesPerFeedPage: '25',
-      public: {
-          apiBaseUrl: '',
-      }
-  },
+	runtimeConfig: {
+		maxStoriesPerFeedPage: "25",
+		public: {
+			apiBaseUrl: ""
+		}
+	},
 
-  css: ["~/assets/css/tailwind.css"],
+	css: ["~/assets/css/tailwind.css"],
 
-  build: {
-      postcss: {
-          postcssOptions: {
-              plugins: {
-                  tailwindcss: {},
-                  autoprefixer: {},
-              },
-          },
-      },
-  },
+	build: {
+		postcss: {
+			postcssOptions: {
+				plugins: {
+					tailwindcss: {},
+					autoprefixer: {}
+				}
+			}
+		}
+	},
 
-  compatibilityDate: "2024-08-27",
-})
+	compatibilityDate: "2024-08-27"
+});

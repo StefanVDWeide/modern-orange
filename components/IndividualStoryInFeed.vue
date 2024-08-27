@@ -148,7 +148,7 @@ const { data } = await useFetch<cleanStoryObject>(
       itemID: props.itemID,
       itemRanking: props.itemRanking,
     },
-    key: props.itemID.toString(),
+    key: props.itemID.toString()
   }
 );
 
