@@ -141,7 +141,7 @@ const imgError = ref(false);
 // TODO: Add error handling
 // Fetch individual story
 const { data } = await useFetch<cleanStoryObject>(
-  `/api/getIndividualStoryRest`,
+  `/api/getIndividualStory`,
   {
     method: "POST",
     body: {
