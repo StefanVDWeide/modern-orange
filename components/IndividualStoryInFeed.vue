@@ -140,7 +140,7 @@ const imgError = ref(false);
 
 // TODO: Add error handling
 // Fetch individual story
-const { data, pending, refresh } = await useFetch<cleanStoryObject>(
+const { data } = await useFetch<cleanStoryObject>(
   `/api/getIndividualStoryRest`,
   {
     method: "POST",
