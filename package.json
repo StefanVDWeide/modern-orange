@@ -7,6 +7,7 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
+    "@nuxtjs/plausible": "^1.2.0",
     "@nuxtjs/tailwindcss": "^6.6.4",
     "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "^10.4.5",
@@ -18,7 +19,6 @@
     "@nuxt/image": "^1.0.0",
     "firebase": "^10.12.2",
     "open-graph-scraper": "^6.5.1",
-    "timeago.js": "^4.0.2",
-    "vue-gtag-next": "^1.14.0"
+    "timeago.js": "^4.0.2"
   }
 }
