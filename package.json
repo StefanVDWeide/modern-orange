@@ -7,17 +7,17 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "@nuxtjs/plausible": "^1.2.0",
+    "@nuxtjs/plausible": "^2.0.1",
     "@nuxtjs/tailwindcss": "^6.6.4",
     "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "^10.4.5",
-    "nuxt": "^3.0.0-rc.6",
+    "nuxt": "^4.2.2",
     "postcss": "^8.4.12",
     "tailwindcss": "^3.0.24"
   },
   "dependencies": {
     "@nuxt/image": "^1.0.0",
-    "firebase": "^10.12.2",
+    "firebase": "^12.7.0",
     "open-graph-scraper": "^6.5.1",
     "timeago.js": "^4.0.2"
   }

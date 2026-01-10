@@ -1,41 +1,41 @@
 import {
-    get,
-    child,
-    query,
+  get,
+  child,
+  query,
 } from "firebase/database";
 
-import { db } from "~~/utils/firebase.js"
+import { db } from "~/utils/firebase.js"
 
 const fetchIndividualUser = async (userID: string) => {
-    const snapshot = await get(
-        query(child(db, `v0/user/${userID}`))
-    )
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                return snapshot.val();
-            } else {
-                console.log("No data avaible");
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    return snapshot;
+  const snapshot = await get(
+    query(child(db, `v0/user/${userID}`))
+  )
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
+        console.log("No data avaible");
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return snapshot;
 };
 
 
 export default defineEventHandler(async (event) => {
-    try {
-        const userID = event.context.params.username;
-        const userData = await fetchIndividualUser(userID);
-        return userData;
+  try {
+    const userID = event.context.params.username;
+    const userData = await fetchIndividualUser(userID);
+    return userData;
 
-    } catch (error) {
-        console.log("An error occured while retrieving an individual user on the server")
-        console.log(error);
-        return {
-            error: true,
-        }
+  } catch (error) {
+    console.log("An error occured while retrieving an individual user on the server")
+    console.log(error);
+    return {
+      error: true,
     }
+  }
 })
 
