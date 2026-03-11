@@ -16,7 +16,7 @@
     "tailwindcss": "^3.0.24"
   },
   "dependencies": {
-    "@nuxt/image": "^1.0.0",
+    "@nuxt/image": "^2.0.0",
     "firebase": "^12.7.0",
     "open-graph-scraper": "^6.5.1",
     "timeago.js": "^4.0.2"
